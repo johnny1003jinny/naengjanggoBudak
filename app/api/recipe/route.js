@@ -1,3 +1,4 @@
+const API_KEY = "sk-ant-api03-여기에키직접입력";
 export async function POST(request) {
   try {
     const { ingredients, staples, mealType, simpleBreakfast } = await request.json();
@@ -9,7 +10,7 @@ export async function POST(request) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "x-api-key": process.env.CLAUDE_API_KEY,
+        "x-api-key": API_KEY,
         "anthropic-version": "2023-06-01",
       },
       body: JSON.stringify({
