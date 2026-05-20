@@ -341,7 +341,7 @@ export default function App() {
       <main style={S.main}>
         {screen===SCREENS.FRIDGE   && <FridgeScreen ingredients={ingredients} setIngredients={setIngredients} staples={staples} showAdd={showAdd} setShowAdd={setShowAdd} setShopping={setShopping}/>}
         {screen===SCREENS.MEALS    && <MealsScreen meals={meals} loading={loadingMeals} error={mealError} mealType={mealType} setMealType={setMealType} simpleBreakfast={simpleBreakfast} setSB={setSB} onGenerate={generateMeals} onSelect={openRecipe} ingredients={ingredients} staples={staples} useAI={useAI} setUseAI={setUseAI} apiReady={apiReady}/>}
-        {screen===SCREENS.RECIPE   && <RecipeScreen recipe={selRecipe} onCooking={handleCooking} cookingDone={cookingDone} memos={memos} setMemos={setMemos}/>}
+        {screen===SCREENS.RECIPE   && <RecipeScreen recipe={selRecipe} onCooking={handleCooking} cookingDone={cookingDone} memos={memos} setMemos={setMemos} onBack={()=>setSelRecipe(null)}/>}
         {screen===SCREENS.SHOPPING && <ShoppingScreen list={shopping} setList={setShopping} ingredients={ingredients} setIngredients={setIngredients}/>}
         {screen===SCREENS.SETTINGS && <SettingsScreen staples={staples} setStaples={setStaples} apiKey={apiKey} setApiKey={setApiKey} apiReady={apiReady}/>}
       </main>
@@ -525,7 +525,7 @@ function MealsScreen({meals,loading,error,mealType,setMealType,simpleBreakfast,s
 }
 
 // ── 레시피 화면 (메모 기능 포함) ─────────────────────────────
-function RecipeScreen({recipe,onCooking,cookingDone,memos,setMemos}){
+function RecipeScreen({recipe,onCooking,cookingDone,memos,setMemos,onBack}){
   const [tab, setTab]         = useState("search"); // search | memo
   const [search, setSearch]   = useState("");
   const [showMemoForm, setShowMemoForm] = useState(false);
@@ -549,7 +549,7 @@ function RecipeScreen({recipe,onCooking,cookingDone,memos,setMemos}){
   if (recipe && tab==="search") return (
     <div>
       <div style={{display:"flex",gap:8,marginBottom:12}}>
-        <button style={{...S.btnSec,fontSize:12,padding:"8px 12px"}} onClick={()=>{}}>← 뒤로</button>
+        <button style={{...S.btnSec,fontSize:12,padding:"8px 12px"}} onClick={onBack}>← 뒤로</button>
       </div>
       <div style={S.hero}>
         <div style={{fontSize:20,fontWeight:800,marginBottom:8}}>{recipe.name}</div>
